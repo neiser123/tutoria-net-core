@@ -59,8 +59,17 @@ namespace tutoria_net_core
             DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
             defaultFilesOptions.DefaultFileNames.Clear();
             defaultFilesOptions.DefaultFileNames.Add("nodefault.html");
-            app.UseDefaultFiles();
+            app.UseDefaultFiles(defaultFilesOptions);
             app.UseStaticFiles();
+
+            //exepciones
+
+            app.Run(async context =>
+            {
+                throw new Exception("error fatal");
+                await context.Response.WriteAsync("CAMINO 2");
+
+            });
 
 
 
