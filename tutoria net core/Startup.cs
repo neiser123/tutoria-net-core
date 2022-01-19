@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tutoria_net_core.Models;
 
 namespace tutoria_net_core
 {
@@ -26,7 +27,12 @@ namespace tutoria_net_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+           // services.AddRazorPages();
+
+            //------- MODELO VISTA CONTROLADOR ----------
+            services.AddMvc(); // para modelo vista controlador 1 
+           //  services.AddMvcCore(); // para modelo vista controlador 2 //
+            services.AddSingleton< IAmigoAlmacen, MockAmigoRepositorio>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +48,7 @@ namespace tutoria_net_core
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            //middleware
+            //--------------middleware
             //app.Use(async (context,next) =>
             //{
             //    lloger.LogInformation("XXXXXXX");
@@ -52,35 +58,50 @@ namespace tutoria_net_core
             //app.Run(async context =>
             //{
             //    await context.Response.WriteAsync("CAMINO 2");
-                
+
             //});
 
-            app.UseHttpsRedirection();
-            DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
-            defaultFilesOptions.DefaultFileNames.Clear();
-            defaultFilesOptions.DefaultFileNames.Add("nodefault.html");
-            app.UseDefaultFiles(defaultFilesOptions);
-            app.UseStaticFiles();
 
-            //exepciones
+            //----------ficheros estaticos------------
+            //app.UseHttpsRedirection();
+            //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
+            //defaultFilesOptions.DefaultFileNames.Clear();
+            //defaultFilesOptions.DefaultFileNames.Add("nodefault.html");
+            //app.UseDefaultFiles(defaultFilesOptions);
+            //app.UseStaticFiles();
 
-            app.Run(async context =>
+            //-----------exepciones------------
+            /*app.Run(async context =>
             {
-                throw new Exception("error fatal");
+                // throw new Exception("error fatal");
                 await context.Response.WriteAsync("CAMINO 2");
 
-            });
+            });*/
 
-
-
+            app.UseStaticFiles();
             app.UseRouting();
+            app.UseCors();
 
-            app.UseAuthorization();
+            //----------- MODELO VISTA CONTROLADOR --------------
+            //app.UseCors();
+            //app.Run(async context =>
+            //{
+            //   // throw new Exception("error fatal");
+            //    await context.Response.WriteAsync("mvc 2");
 
+            //});
+            // fraccion de codigo enruta hacia la clase controller
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
             });
+
+          //  app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapRazorPages();
+            //});
         }
     }
 }
