@@ -1,0 +1,27 @@
+﻿@model tutoria_net_core.ViewModels.DetallesView; 
+ @* VISTA FUERTEMENTE TIPADA*@ 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+   
+
+    <h1>@Model.Titulo</h1>
+    <h2>@Model.Subtitulo</h2>
+
+    <div>
+        Nombre:@Model.amigo.nombre
+    </div>
+    <div>
+        email:@Model.amigo.email
+    </div>
+    <div>
+        ciudad:@Model.amigo.ciudad
+    </div>
+
+
+</body>
+</html>

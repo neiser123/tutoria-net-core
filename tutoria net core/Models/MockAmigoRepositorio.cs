@@ -23,5 +23,9 @@ namespace tutoria_net_core.Models
             return this.amigosLista.FirstOrDefault(e => e.Id == Id);
         }
 
+        public List<Amigo> dateTodosLosAmigos()
+        {
+            return amigosLista;
+        }
     }
 }

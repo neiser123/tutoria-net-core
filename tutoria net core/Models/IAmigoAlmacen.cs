@@ -8,6 +8,8 @@ namespace tutoria_net_core.Models
    public interface IAmigoAlmacen
     {
         Amigo dameDatosAmigo(int Id);
+
+        List<Amigo> dateTodosLosAmigos();
     }
 
 }
