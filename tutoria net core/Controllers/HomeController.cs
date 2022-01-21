@@ -30,16 +30,21 @@ namespace tutoria_net_core.Controllers
         //}
 
         //----------ruta por medio del controlador que va hacia la carpeta views--------------------
-          public ViewResult Index()
+        [Route("")]
+        [Route("Home")]
+        [Route("Home/Index")]
+          public ViewResult Index(int id)
           {
             //  Amigo modelo = AmigoAlmacen.dameDatosAmigo(1);// un solo dato de la lista
             var modelo1 = AmigoAlmacen.dateTodosLosAmigos();
               return View(modelo1);
           }
-          public ViewResult details()
+
+        [Route("Home/details/{id?}")]// al poner el signo de interogacion no deja que sea obligatorio
+        public ViewResult details(int? id)
           {
              //view data
-              Amigo amigo = AmigoAlmacen.dameDatosAmigo(1);
+              Amigo amigo = AmigoAlmacen.dameDatosAmigo(id ?? 1); //si viene nulo enviamos 1 por defecto
              ViewData["Cabecera"] = "LISTA DE AMIGOS";
              ViewData["Amigo"] = amigo;
              //view bag

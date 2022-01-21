@@ -82,6 +82,7 @@ namespace tutoria_net_core
             app.UseRouting();
             app.UseCors();
 
+
             //----------- MODELO VISTA CONTROLADOR --------------
             //app.UseCors();
             //app.Run(async context =>
@@ -91,12 +92,18 @@ namespace tutoria_net_core
 
             //});
             // fraccion de codigo enruta hacia la clase controller
+            //--------- ROUTING ------------
+
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
+                endpoints.MapControllers();
             });
-
-          //  app.UseAuthorization();
+            /* app.UseEndpoints(endpoints =>
+             {
+                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");// con interogacion no es obligatorio
+             });*/
+            //------ fin routing ------------------
+            //  app.UseAuthorization();
 
             //app.UseEndpoints(endpoints =>
             //{
