@@ -8,7 +8,7 @@
 
     <h1>lista de objetos</h1>
 
-    <table>
+    @*<table>
         <tr>
             <th>id</th>
             <th>nombre</th>
@@ -16,18 +16,31 @@
             <th>ciudad</th>
 
         </tr>
-        <tr>
+        <tr>*@
+<div class="card-deck">
             @foreach (var amigo in Model)
             {
-            <tr>
-                <td>@amigo.Id    </td>
-                <td>@amigo.nombre</td>
-                <td>@amigo.email </td>
-                <td>@amigo.ciudad</td>
-            </tr>
-             }
+                <div class="card m-3">
+                    <div class="card-header">
+                        <h3>@amigo.nombre </h3>
+                    </div>
+                    <img class="card-img-top" src="~/images/chica.jpg"/>
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-primary">VER</a>
+                        <a href="#" class="btn btn-primary">EDITAR</a>
+                        <a href="#" class="btn btn-danger">BORRAR</a>
+                    </div>
+                </div>
+            }
 
-         </tr>
+</div>
 
-        </table>
+        @*</tr>*@
+        @*<tr>
+            <td>@amigo.Id    </td>
+            <td>@amigo.nombre</td>
+            <td>@amigo.email </td>
+            <td>@amigo.ciudad</td>
+        </tr>
+    </table>*@
 

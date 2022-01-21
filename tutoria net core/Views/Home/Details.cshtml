@@ -10,7 +10,36 @@
 @{
     var amigo = ViewData["Amigo"] as tutoria_net_core.Models.Amigo;//traemos la referencia del modelo amigo q es la clase
 }
+
+
 <div>
+    <div class="row justify-content-center" m-3>
+        <div class="col-sm-8">
+            <div class="card">
+
+                <div class="card m-3">
+                    <div class="card-header">
+                        <h3>@amigo.nombre </h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <img class="card-img-top" src="~/images/chica.jpg" />
+                        <h4>AMIGO ID : @Model.Id</h4>
+                        <h4>EMAIL : @Model.email</h4>
+                        <h4>CIUDAD : @Model.ciudad</h4>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-primary">VER</a>
+                        <a href="#" class="btn btn-primary">EDITAR</a>
+                        <a href="#" class="btn btn-danger">BORRAR</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div>
     Nombre:@amigo.nombre
 </div>
 <div>
@@ -18,11 +47,9 @@
 </div>
 <div>
     ciudad:@amigo.ciudad
-</div>
+</div>*@
 
-
-
-<h1>@ViewBag.Cabecera</h1>
+@*<h1>@ViewBag.Cabecera</h1>
 
 <div>
     Nombre:@ViewBag.amigo.nombre
@@ -44,7 +71,7 @@
 </div>
 <div>
     ciudad:@amigo.ciudad
-</div>
+</div>*@
 
 @section Scripts
 {
