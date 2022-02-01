@@ -24,9 +24,9 @@
                     <div class="card-header">
                         <h3>@amigo.nombre </h3>
                     </div>
-                    <img class="card-img-top" src="~/images/chica.jpg"/>
+                    <img class="card-img-top" src="~/images/chica.jpg" asp-append-version="true" />
                     <div class="card-footer text-center">
-                        <a href="#" class="btn btn-primary">VER</a>
+                        <a class="btn btn-primary" asp-controller="home" asp-action="details" asp-route-id="@amigo.Id" >VER</a>
                         <a href="#" class="btn btn-primary">EDITAR</a>
                         <a href="#" class="btn btn-danger">BORRAR</a>
                     </div>

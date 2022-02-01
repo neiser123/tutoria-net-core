@@ -1,0 +1,35 @@
+﻿@model Amigo
+@{
+    Layout = "~/Views/share/_Layout.cshtml";
+    ViewBag.Title = "NUEVO AMIGO";
+
+}
+<br />
+<form asp-controller="Home" asp-action="create" method="Post">
+
+    <div class="form-group row">
+        <label asp-for="nombre" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="nombre" class="form-control" placeholder="Nombre" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="email" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="email" class="form-control" placeholder="Email" />
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="ciudad" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <select asp-for="ciudad" class="custom-select mr-sm-2" asp-items="Html.GetEnumSelectList<Ciudad>()"></select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary">Nuevo</Button>
+        </div>
+    </div>
+
+
+</form>

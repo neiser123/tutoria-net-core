@@ -55,6 +55,13 @@ namespace tutoria_net_core.Controllers
             return View(amigo);
 
           }
+        [Route("Home/create")]
+        public ViewResult create()
+        {
+            //  Amigo modelo = AmigoAlmacen.dameDatosAmigo(1);// un solo dato de la lista
+          //  var modelo1 = AmigoAlmacen.dateTodosLosAmigos();
+            return View();
+        }
         public ViewResult DetalleViewModel()
         {
           

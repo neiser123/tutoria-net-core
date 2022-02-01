@@ -12,10 +12,10 @@ namespace tutoria_net_core.Models
         public MockAmigoRepositorio()
              {
             amigosLista = new List<Amigo>();
-            amigosLista.Add(new Amigo { Id = 1, nombre = "neiser", ciudad = "Cali", email = "neiser@hotmail.com" });
-            amigosLista.Add(new Amigo { Id = 2, nombre = "sergio", ciudad = "cucuta", email = "sergio@hotmail.com" });
-            amigosLista.Add(new Amigo { Id = 3, nombre = "guillermo", ciudad = "bogota", email = "guille@hotmail.com" });
-            amigosLista.Add(new Amigo { Id = 4, nombre = "alex", ciudad = "medellin", email = "alex@hotmail.com" });
+            amigosLista.Add(new Amigo { Id = 1, nombre = "neiser", ciudad = Ciudad.Cali, email = "neiser@hotmail.com" });
+            amigosLista.Add(new Amigo { Id = 2, nombre = "sergio", ciudad = Ciudad.Buga, email = "sergio@hotmail.com" });
+            amigosLista.Add(new Amigo { Id = 3, nombre = "guillermo", ciudad = Ciudad.Buga, email = "guille@hotmail.com" });
+            amigosLista.Add(new Amigo { Id = 4, nombre = "alex", ciudad = Ciudad.Medellin, email = "alex@hotmail.com" });
              }
 
         public Amigo dameDatosAmigo(int Id)
