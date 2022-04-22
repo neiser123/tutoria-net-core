@@ -10,6 +10,11 @@ namespace tutoria_net_core.Models
         Amigo dameDatosAmigo(int Id);
 
         List<Amigo> dateTodosLosAmigos();
+        Amigo Nuevo(Amigo amigo);
+
+        Amigo modificar(Amigo modificarAmigo);
+
+        Amigo borrar(int id);
     }
 
 }

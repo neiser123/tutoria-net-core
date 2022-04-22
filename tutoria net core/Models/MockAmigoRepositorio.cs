@@ -27,5 +27,36 @@ namespace tutoria_net_core.Models
         {
             return amigosLista;
         }
+
+        public Amigo Nuevo(Amigo amigo)
+        {
+            amigo.Id = amigosLista.Max(a => a.Id) + 1;
+            amigosLista.Add(amigo);
+            return amigo;
+        }
+
+        public Amigo modificar(Amigo modificarAmigo)
+        {
+            Amigo amigo = amigosLista.FirstOrDefault(e => e.Id == modificarAmigo.Id);
+            if (amigo != null)
+            {
+                amigo.nombre = modificarAmigo.nombre;
+                amigo.email = modificarAmigo.email;
+                amigo.ciudad = modificarAmigo.ciudad;
+            }
+            return amigo;
+
+        }
+
+        public Amigo borrar(int Id)
+        {
+            Amigo amigo = amigosLista.FirstOrDefault(e => e.Id == Id);
+            if (amigo != null)
+            {
+                amigosLista.Remove(amigo);
+            }
+            return amigo;
+
+        }
     }
 }

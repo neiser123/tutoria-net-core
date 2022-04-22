@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,12 +29,42 @@ namespace tutoria_net_core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddRazorPages();
+            // services.AddRazorPages();
 
             //------- MODELO VISTA CONTROLADOR ----------
+            services.AddDbContext<AppDbContext>();
+           // services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexionSQL")));
             services.AddMvc(); // para modelo vista controlador 1 
-           //  services.AddMvcCore(); // para modelo vista controlador 2 //
-            services.AddSingleton< IAmigoAlmacen, MockAmigoRepositorio>();
+                               //  services.AddMvcCore(); // para modelo vista controlador 2 //
+                               //services.AddSingleton< IAmigoAlmacen, MockAmigoRepositorio>();//llamaba al mock donde estan las listas quemadas
+            services.AddScoped<IAmigoAlmacen, SQLAmigoRepositorio>();
+
+            /***********onfiguracion para el sistemas de identidades *******************
+             *ddErrorDescriber<ErroresCastellano>()  -> sobrecribe las validaciones de ingles y las pone en castellano
+             */
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                options => {
+                   options.SignIn.RequireConfirmedEmail = false;
+                   
+                }).AddErrorDescriber<ErroresCastellano>().
+                AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+        /************* solo ve la informacion las personas logeadas ********/
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Cuentas/Login";
+             //   options.AccessDeniedPath = "/Cuentas/AccesoDenegado";
+            });
+            
+            /*********  CONFIGURAR VALIDACIONES DEL CAMPO PASWORD *******/
+            services.Configure<IdentityOptions>(opciones =>
+            {
+                opciones.Password.RequiredLength = 8;
+                opciones.Password.RequiredUniqueChars = 3; //solo pida 3 caracteres
+                opciones.Password.RequireNonAlphanumeric = false; // quitar los alfas numericos
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +74,13 @@ namespace tutoria_net_core
             {
                 app.UseDeveloperExceptionPage();
             }
+            else if (env.IsProduction() || env.IsStaging())
+            {
+
+                app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+            }
+
             else
             {
                 app.UseExceptionHandler("/Error"); 
@@ -78,10 +117,12 @@ namespace tutoria_net_core
 
             });*/
 
+            
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthorization();
             app.UseCors();
-
 
             //----------- MODELO VISTA CONTROLADOR --------------
             //app.UseCors();

@@ -1,0 +1,13 @@
+﻿@if (ViewBag.ErrorTitle == null)
+{
+    <h3>
+        Ocurrio un error procesando su solicitud
+    </h3>
+    <h5>Por favor contacta con japsoftware@gmail.com</h5>
+    <br />
+}
+else
+{
+    <h1 class="text-danger">@ViewBag.ErrorTitle</h1>
+    <h6 class="text-danger">@ViewBag.ErrorMessage</h6>
+}

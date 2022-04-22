@@ -1,4 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<IdentityUser> SignInManager
+
 <!DOCTYPE html>
 
 <html>
@@ -7,8 +9,12 @@
     <title>@ViewBag.Title</title>
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>  @*libreria q permite usar los atributos del lado del servidor ya existentes y usurlos en el lado del cliente(no va validar nada en los controller lo hace directamente en js *@ 
+
     <enviroment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
     </enviroment>
     <enviroment exclude="Development">
         <!-- CSS only -->
@@ -38,6 +44,36 @@
                         <a class="nav-link" asp-controller="home" asp-action="Create">CREAR</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ml-auto">
+                    <!--Si el usuario está logado hacemos que aparezca el link de cerrar sesión-->
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <form method="post" asp-controller="Cuentas" asp-action="CerrarSesion">
+                                <button type="submit" style="width:auto"
+                                        class="nav-link btn btn-link py-0">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+                        </li>
+
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Cuentas" asp-action="Registro">
+                                Registro
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Cuentas" asp-action="Login">
+                                Login
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+
             </div>
         </nav>
 

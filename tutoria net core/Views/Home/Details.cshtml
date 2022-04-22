@@ -4,6 +4,7 @@
 
     Layout = "~/Views/share/_Layout.cshtml";
     ViewBag.Title = "AMIGOS INDICE";
+    var rutafoto = "~/images/"+(Model.rutaFoto??"");
 }
 
 <h1>@ViewData["Cabecera"]</h1>
@@ -22,7 +23,7 @@
                         <h3>@amigo.nombre </h3>
                     </div>
                     <div class="card-body text-center">
-                        <img class="card-img-top" src="~/images/chica.jpg" />
+                        <img class="card-img-top imagen" src="@rutafoto" asp-append-version="true" />
                         <h4>AMIGO ID : @Model.Id</h4>
                         <h4>EMAIL : @Model.email</h4>
                         <h4>CIUDAD : @Model.ciudad</h4>
