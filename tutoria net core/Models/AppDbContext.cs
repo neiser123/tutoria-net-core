@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tutoria_net_core.ViewModels;
 
 namespace tutoria_net_core.Models
 {
-    public class AppDbContext : IdentityDbContext
+    public class AppDbContext : IdentityDbContext<UsuarioAplicacion>
     {
         public AppDbContext() 
         {

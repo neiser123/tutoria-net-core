@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<UsuarioAplicacion> SignInManager
 
 <!DOCTYPE html>
 
@@ -10,8 +10,9 @@
     <script src="~/lib/jquery/jquery.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>  @*libreria q permite usar los atributos del lado del servidor ya existentes y usurlos en el lado del cliente(no va validar nada en los controller lo hace directamente en js *@ 
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>  @*libreria q permite usar los atributos del lado del servidor ya existentes y usurlos en el lado del cliente(no va validar nada en los controller lo hace directamente en js *@
 
+    <script src="~/js/JavaScript.js"></script>
     <enviroment include="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         <link href="~/css/site.css" rel="stylesheet" />
@@ -24,11 +25,25 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 
-<body>
+<body >
+    @*<img src="~/images/pexels-klub-boks-8216438.jpg" />*@
+    <!-- count particles -->
+    @*<div class="count-particles">
+            <span class="js-count-particles">-sssssssssssssssssssssssssssssssssssssss-</span> particles
+        </div>*@
+
+    <div id="particles-js">
+    </div>
 
     <div class="container">
 
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+
+        <!-- particles.js container -->
+
+
+        <nav class="navbar navbar-expand-sm" style="background-color: #010004bf;">
+            @*  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">  *@
             <a class="navbar-brand" asp-controller="home" asp-action="index">
                 <img src="~/images/developer.png" width="50" height="72" />
             </a>
@@ -45,6 +60,15 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
+
+                    <!--Si el usuario está logado y es administrador que vea los roles-->
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Administrador"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Adiministracion" asp-action="gestionRoles">GESTIONAR ROLES</a>
+                        </li>
+
+                    }
                     <!--Si el usuario está logado hacemos que aparezca el link de cerrar sesión-->
                     @if (SignInManager.IsSignedIn(User))
                     {
@@ -77,11 +101,39 @@
             </div>
         </nav>
 
-        <div>
-            @RenderBody()
-        </div>
+            <div>
+                @RenderBody()
+            </div>
 
-        @RenderSection("Scripts", required: false)
+            @RenderSection("Scripts", required: false)
+
+
     </div>
+    <script src="~/particles/particles.js"></script>
+    <script src="~/particles/js/lib/app.js"></script>
+    @*<script src="~/particles/js/stats.js"></script>*@
+
+
+    <script>
+        var count_particles, stats, update;
+        stats = new Stats;
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+        document.body.appendChild(stats.domElement);
+        count_particles = document.querySelector('.js-count-particles');
+        update = function () {
+            stats.begin();
+            stats.end();
+            if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+                count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+            }
+            requestAnimationFrame(update);
+        };
+        requestAnimationFrame(update);
+    </script>
+
 </body>
+
 </html>

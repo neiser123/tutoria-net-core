@@ -17,13 +17,13 @@ namespace tutoria_net_core.Controllers
     public class CuentasController : Controller
     {
         //La clase UserManager nos permite administrar y gestionar usaurio
-        private readonly UserManager<IdentityUser> gestionUsuarios;
+        private readonly UserManager<UsuarioAplicacion> gestionUsuarios;
         //La clase SignInManager contiene los métodos necesarios para que el usuario inicie sesión, de la tabla users
-        private readonly SignInManager<IdentityUser> gestionLogin;
+        private readonly SignInManager<UsuarioAplicacion> gestionLogin;
         private readonly ILogger<CuentasController> log;
 
 
-        public CuentasController(UserManager<IdentityUser> gestionUsuarios, SignInManager<IdentityUser> gestionLogin,
+        public CuentasController(UserManager<UsuarioAplicacion> gestionUsuarios, SignInManager<UsuarioAplicacion> gestionLogin,
             ILogger<CuentasController> log)
         {
             this.gestionUsuarios = gestionUsuarios;
@@ -37,6 +37,7 @@ namespace tutoria_net_core.Controllers
         //public IActionResult Registro()
         public ViewResult Registro()
         {
+            //ViewBag.Cabecera = "LISTA DE AMIGOS VIEWBAGS";
             return View();
         }
 
@@ -45,14 +46,15 @@ namespace tutoria_net_core.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Registro(RegistroModelo model)
         {
+           
             if (ModelState.IsValid)
             {
-                // Volcamos los datos de la clase RegistroModelo a la clase IdentityUser
-                var usuario = new IdentityUser
+                // Volcamos los datos de la clase RegistroModelo a la clase UsuarioAplicacion
+                var usuario = new UsuarioAplicacion
                 {
                     UserName = model.Email,
-                    Email = model.Email//,
-                  //  ayudaPass = model.ayudaPass
+                    Email = model.Email,
+                    ayudaPass = model.ayudaPass
                   
                 };
                     // Content("<script language='javascript' type='text/javascript'>alert('Save Successfully');</script>");
@@ -362,13 +364,13 @@ namespace tutoria_net_core.Controllers
         }
 
 
-        //    [HttpGet]
-        //    [AllowAnonymous]
-        //    [Route("Cuentas/AccesoDenegado")]
-        //    public IActionResult AccesoDenegado()
-        //    {
-        //        return View();
-        //    }
+            [HttpGet]
+            [AllowAnonymous]
+            [Route("Cuentas/Acceso")]
+            public IActionResult AccesoDenegado()
+            {
+                return View();
+            }
 
         //[HttpGet]
         //[AllowAnonymous]

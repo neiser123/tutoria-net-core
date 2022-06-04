@@ -7,10 +7,14 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\js\JavaScript.js" />
+    <Content Remove="wwwroot\particles\js\lib\app.js" />
+    <Content Remove="wwwroot\particles\js\stats.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\js\JavaScript.js" />
+    <None Include="wwwroot\particles\js\lib\app.js" />
+    <None Include="wwwroot\particles\js\stats.js" />
   </ItemGroup>
 
   <ItemGroup>

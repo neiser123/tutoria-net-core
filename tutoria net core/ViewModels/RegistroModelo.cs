@@ -14,8 +14,8 @@ namespace tutoria_net_core.ViewModels
         [Display(Name = "Email")]
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", ErrorMessage = "Formato incorrecto")]
         [EmailAddress]
-        [Remote(action: "comprobarEmail", controller: "Cuentas")]
-       //[ValidarNombreUsuario(usuario: "joder", ErrorMessage = "Palabra no permitida")]
+        [Remote(action: "ComprobarEmail", controller: "Cuentas")]
+       [ValidarNombreUsuario(usuario: "joder", ErrorMessage = "Palabra no permitida")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password obligatorio")]

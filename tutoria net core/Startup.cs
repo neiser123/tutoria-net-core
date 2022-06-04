@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using tutoria_net_core.Models;
+using tutoria_net_core.ViewModels;
 
 namespace tutoria_net_core
 {
@@ -33,16 +36,22 @@ namespace tutoria_net_core
 
             //------- MODELO VISTA CONTROLADOR ----------
             services.AddDbContext<AppDbContext>();
-           // services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexionSQL")));
-            services.AddMvc(); // para modelo vista controlador 1 
-                               //  services.AddMvcCore(); // para modelo vista controlador 2 //
-                               //services.AddSingleton< IAmigoAlmacen, MockAmigoRepositorio>();//llamaba al mock donde estan las listas quemadas
+            // services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConexionSQL")));
+            services.AddMvc();
+          /*   services.AddMvc(options =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.Filters.Add(new AuthorizeFilter(policy)); //requiera autenticacion a las distintas funcionalidades de la aplicacion
+
+            }).AddXmlSerializerFormatters();*/ // para modelo vista controlador 1 
+                                             //  services.AddMvcCore(); // para modelo vista controlador 2 //
+                                             //services.AddSingleton< IAmigoAlmacen, MockAmigoRepositorio>();//llamaba al mock donde estan las listas quemadas
             services.AddScoped<IAmigoAlmacen, SQLAmigoRepositorio>();
 
             /***********onfiguracion para el sistemas de identidades *******************
              *ddErrorDescriber<ErroresCastellano>()  -> sobrecribe las validaciones de ingles y las pone en castellano
              */
-            services.AddIdentity<IdentityUser, IdentityRole>(
+            services.AddIdentity<UsuarioAplicacion, IdentityRole>(
                 options => {
                    options.SignIn.RequireConfirmedEmail = false;
                    
@@ -54,7 +63,7 @@ namespace tutoria_net_core
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Cuentas/Login";
-             //   options.AccessDeniedPath = "/Cuentas/AccesoDenegado";
+                options.AccessDeniedPath = "/Cuentas/AccesoDenegado";
             });
             
             /*********  CONFIGURAR VALIDACIONES DEL CAMPO PASWORD *******/
